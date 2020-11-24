@@ -1,0 +1,52 @@
+{
+  "name": "tekkenapp",
+  "version": "0.0.1",
+  "description": "Aplicacao de aprendizagem para java web. Ja foi usado primefaces mas agora vou usar angularjs",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cajjunb/TekkenSistema.git"
+  },
+  "keywords": [
+    "java",
+    "Tekken",
+    "angularjs",
+    "javaee"
+  ],
+  "author": "Leandro Ramalho",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.8.0",
+    "angular-ui-bootstrap": "2.5.6",
+    "bootstrap": "4.5.2",
+    "jquery": "3.5.1",
+    "ng-grid": "2.0.1"
+  },
+  "devDependencies": {
+    "angular": "~1.5.8",
+    "angular-mocks": "~1.5.8",
+    "angular-route": "~1.5.8",
+    "angular-sanitize": "~1.5.3",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-htmllint": "*",
+    "grunt-karma": "^2.0.0",
+    "grunt-strip-code": "^1.0.4",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "*",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "*"
+  },
+  "scripts": {
+    "start": "grunt server",
+    "test": "karma start karma.conf.js"
+  }
+}
