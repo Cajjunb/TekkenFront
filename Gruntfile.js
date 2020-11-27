@@ -73,10 +73,8 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: true,
-                ignores: [
-                  srcDir + '/main/webapp/resources/js/angular-1.8.0/**/*.js',
-                  srcDir + '/main/webapp/resources/js/angular-1.8.0/*.js',
-                  srcDir + '/main/webapp/assets/**/*.js' ]
+                ignores: ['/node_modules/**/*.js',
+                srcDir + '/assets/**/*.js']
             },
             jshintrc: '.jshintrc',
             all: [srcDir + '/**/*.js', 'spec/**/*-spec.js', 

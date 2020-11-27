@@ -7,7 +7,7 @@
 (function (personagensModulo) {
 
 
-    var controlePersonagem = function (erroService,$scope, $http) {
+    personagensModulo.controller('personagensController', function ($scope, $http) {
         urlPersonagens = 'http://localhost:8080/TekkenApp/rest/personagens';
         urlPersonagensLazy = 'http://localhost:8080/TekkenApp/rest/personagens/golpes';
         urlGolpes = 'http://localhost:8080/TekkenApp/rest/golpes';
@@ -21,7 +21,7 @@
 
         vm.listarPersonagens = function () {
             console.log('RODEI');
-            $http.get(urlPersonagens).then(vm.listarPersonagensSucesso,vm.listarPersonagensErro);
+            $http.get(urlPersonagens).then(vm.listarPersonagensSucesso, vm.listarPersonagensErro);
         };
 
         vm.getListaPersonagens = function(){
@@ -29,7 +29,6 @@
         };
 
         vm.listarPersonagensSucesso = function (response) {
-            console.log('Sucesso!');
             vm.personagens = response.data;
             vm.personagens.forEach(function(valor,index,array){
                 array[index].show = false;
@@ -37,9 +36,7 @@
         };
 
         vm.listarPersonagensErro = function (error){
-            console.log('Erro!');
-            erroService.setERRO_MSG('Não foi possível retornar a lista de personagens');
-            erroService.setERRO_NRO(500);
+            alert('Erro na Listagem de Personagens, a resposta veio vazia');
         };
 
         $scope.selecionaPersonagem = function (personagemSelecionado) {
@@ -184,8 +181,6 @@
             }
         };
 
-    }; 
-
-    personagensModulo.controller('personagensController',['erroService','$scope','$http',controlePersonagem]);
+    });
 
 }(angular.module('aplicacao')));

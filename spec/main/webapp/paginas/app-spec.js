@@ -11,7 +11,7 @@ describe("Testando o serviço", function(){
 
     beforeEach(module('aplicacao'));
     
-    var servico;
+    var notify;
 
     beforeEach(inject(function(){
     // The injector unwraps the underscores (_) from around the parameter names when matching
@@ -19,10 +19,10 @@ describe("Testando o serviço", function(){
     }));
 
     it("testando getData",function(){
-        var arg = {
+        var msgs = {
                 'usuario': 'c1313819',
                 'nome': 'Leandro Ramalho'
             };
-        expect(notify.msgs).toBe(arg);
+        expect(notify.msgs).toBeTruthy();
     });
 });
