@@ -13,11 +13,13 @@ and open the template in the editor.
     <h2>{{mensagemCredenciais}}</h2>
     <button ng-click="getServico()">Seta</button>
     <button ng-click="">Printa</button>
-    <button ng-click=""> Set Erro</button>
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalErro"
         ng-click="erroService.ERRO_MSG ='ERRO OPA'; erroService.ERRO_NRO =404">
         Launch demo modal
     </button>
+    <script>
+        setTimeout(() => {  console.log("World!"); $('#modalErro').modal({focus:true}) }, 5000);
+    </script>
 </div>
 
