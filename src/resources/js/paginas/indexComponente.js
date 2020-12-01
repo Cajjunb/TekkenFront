@@ -42,7 +42,7 @@
             erroService.setERRO_NRO(500);
         };
 
-        $scope.selecionaPersonagem = function (personagemSelecionado) {
+        vm.selecionaPersonagem = function (personagemSelecionado) {
             $scope.personagem = personagemSelecionado;
             $scope.personagem.show = !$scope.personagem.show;
             if ($scope.personagem.show) {
@@ -62,7 +62,7 @@
             }
         };
 
-        $scope.limpaPersonagem = function () {
+        vm.limpaPersonagem = function () {
             $scope.personagem = null;
         };
 
@@ -128,7 +128,7 @@
         };
 
 
-        $scope.selecionaGolpe = function (golpeArg) {
+        vm.selecionaGolpe = function (golpeArg) {
             $scope.golpeSelecionado = golpeArg;
         };
 

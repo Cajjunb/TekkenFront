@@ -10,8 +10,10 @@
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
         <!-- Bootstrap core CSS -->
-        <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
+        <script src="../node_modules/jquery/dist/jquery.min.js" ></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -61,7 +63,8 @@
             <h4>{{mensagem}}</h4>
             <div ng-view>
             </div>
-        </div><!-- /.container -->
+        </div>
+        <!-- /.container -->
         <!-- FOOTER -->
         <footer class="container">
             <p class="float-right"><a href="#">Back to top</a></p>
@@ -71,6 +74,8 @@
     <script src="../node_modules/angular/angular.min.js" ></script>
     <script src="../node_modules/angular-route/angular-route.min.js" ></script>
     <script src="resources/js/app.js" ></script>
+    <script src="resources/js/erroService.js" ></script>
+    <script src="resources/js/directives/directiveTeste.js" ></script>
     <script src="resources/js/appController.js" ></script>
     <script src="resources/js/paginas/usuarioController.js" ></script>
     <script src="resources/js/paginas/credenciaisController.js" ></script>

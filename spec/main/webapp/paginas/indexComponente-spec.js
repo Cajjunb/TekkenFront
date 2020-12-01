@@ -24,7 +24,7 @@ describe("personagensController",function(){
         $rootScope.$apply();
         controller = _$controller_('personagensController',{
             $scope:$scope,
-            // erroService:erroService
+            erroService:erroService
         });
         vm.erroService = erroService;
         //MOCKS 
@@ -36,24 +36,24 @@ describe("personagensController",function(){
         $httpBackend.verifyNoOutstandingRequest();
     });
     
-    it("Testando listar Personagens",function(){
+    it("deve retornar uma lista Personagens com chaves condizentes",function(){
         // var controller = $controller('personagensController',{$scope:$scope});
         var chavesJson;
         var chavesEsperadas = [ 'id', 'nome', 'fotoUrl', 'golpes', 'show' ];
         controller.listarPersonagens();
         $httpBackend.flush()
+        var personagens = controller.getListaPersonagens();
         //EXPECT que cada coisa tenha um JSON certo
-        for( var i = 0; i < controller.personagens.length; i++){
+        for( var i = 0; i < personagens.length; i++){
             chavesJson = Object.keys(controller.personagens[i]);
             for(var j = 0; j < chavesJson.length; j++)
                 expect(chavesJson).toContain(chavesEsperadas[j]);
         }
     });
 
-    it('returns 1', inject(function(){ //parameter name = service 
-        expect( erroService).toBeDefined();
-    }))
-
+    it('Deve retornar lista de personagens um Objeto Vazio',function(){
+        expect(controller.getListaPersonagens()).toBe({});
+    });
 
     it("Testando listar Personagens Erro!",function(){
         //EXPECT que venha ERRADO
@@ -62,7 +62,6 @@ describe("personagensController",function(){
         $httpBackend.flush();
         var resultado = vm.erroService.getERRO_MSG();
         expect(resultado).toBe('Não foi possível retornar a lista de personagens');
-
     });
     // it("Testando Limpa de Personagem Escolhido",function(){
     //     var controller = $controller('personagensController',{$scope:$scope});
