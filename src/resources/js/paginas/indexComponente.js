@@ -5,8 +5,6 @@
  */
 
 (function (personagensModulo) {
-
-
     var controlePersonagem = function (erroService,$scope, $http) {
         urlPersonagens = 'http://localhost:8080/TekkenApp/rest/personagens';
         urlPersonagensLazy = 'http://localhost:8080/TekkenApp/rest/personagens/golpes';
@@ -38,8 +36,10 @@
 
         vm.listarPersonagensErro = function (error){
             console.log('Erro!');
-            erroService.setERRO_MSG('Não foi possível retornar a lista de personagens');
-            erroService.setERRO_NRO(500);
+            erroService.ERRO_MSG = 'Não foi possível retornar a lista de personagens';
+            erroService.ERRO_NRO = 500;
+            console.log(erroService.ERRO_MSG);
+            $('#modalErro').modal({focus:true});
         };
 
         vm.selecionaPersonagem = function (personagemSelecionado) {
@@ -183,6 +183,10 @@
                 console.log('OPA!');
             }
         };
+
+        vm.$onInit = function () {
+            vm.listarPersonagens();
+        }
 
     }; 
 

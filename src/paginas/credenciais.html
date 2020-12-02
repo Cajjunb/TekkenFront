@@ -7,19 +7,14 @@ and open the template in the editor.
 <div ng-controller="credenciaisController">
 
     <h1>MODAL</h1>
-    <div error-modal></div>
-
     <h2>Credenciais:</h2>
     <h2>{{mensagemCredenciais}}</h2>
     <button ng-click="getServico()">Seta</button>
     <button ng-click="">Printa</button>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalErro"
+    <button type="button" class="btn btn-primary" 
         ng-click="erroService.ERRO_MSG ='ERRO OPA'; erroService.ERRO_NRO =404">
         Launch demo modal
     </button>
-    <script>
-        setTimeout(() => {  console.log("World!"); $('#modalErro').modal({focus:true}) }, 5000);
-    </script>
 </div>
 
