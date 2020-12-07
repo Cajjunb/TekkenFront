@@ -11,19 +11,23 @@
         $routeProvider
                 .when("/",{ 
                         templateUrl: 'paginas/usuarios.html',
-                        controller:'usuarioController'
+                        controller:'usuarioController',
+                        controllerAs: 'uc'
                         })
                 .when("/login",{ 
                         templateUrl: 'paginas/login.html',
-                        controller:'loginController'
+                        controller:'loginController',
+                        controllerAs: 'lc'
                         })        
                 .when("/personagens",{ 
                         templateUrl: 'paginas/personagens.html',
-                        controller:'personagensController'
+                        controller:'personagensController',
+                        controllerAs: 'pc'
                 })      
                 .when("/credenciais",{ 
                         templateUrl: 'paginas/credenciais.html',
                         controller:'credenciaisController',
+                        controllerAs: 'cc',
                         resolve:{
                           filtroLogin: function(){
                               var erro = new Error();

@@ -9,9 +9,9 @@
 (function(app){
    
     var credenciaisController = function(notify,$scope){
-        $scope.mensagemCredenciais = "CREDENCIAIS!";
-        
-        $scope.getServico = function(){
+        var vm = this;
+        vm.mensagemCredenciais = "CREDENCIAIS!";
+        vm.getServico = function(){
             notify.nome = "Leo";
 //            $scope.mensagemCredenciais = servico;
         };

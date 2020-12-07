@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context path="/TekkenApp">
-    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-    <Environment name="myConnectionURL" type="java.lang.String" value="localhost"/>
-    
-
-</Context>

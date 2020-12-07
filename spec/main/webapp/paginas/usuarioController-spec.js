@@ -13,8 +13,8 @@ describe("Testando Usuario Controller",function(){
     it("Testando metodo 1",function(){
         var $scope = $rootScope.$new();
         var controller = $controller('usuarioController',{$scope:$scope});
-        $scope.selecionaUsuario("STRING TESTE");
-        expect($scope.usuarioSelecionado).toEqual("STRING TESTE");
+        controller.selecionaUsuario("STRING TESTE");
+        expect(controller.usuarioSelecionado).toEqual("STRING TESTE");
     });
     
 });

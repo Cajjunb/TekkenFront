@@ -8,13 +8,14 @@
    
     var urlUsuariosUrl = 'http://localhost:8080/TekkenApp/rest/login';
     var loginController = function($http,$scope){
-        $scope.registroDTO = {
+        var vm = this;
+        vm.registroDTO = {
               "nome": "",
               "password": ""
         };
 
-        $scope.logarUsuario = function(){
-               $http.post(urlUsuariosUrl+"/signin", $scope.registroDTO).then(function(response){
+        vm.logarUsuario = function(){
+               $http.post(urlUsuariosUrl+"/signin", vm.registroDTO).then(function(response){
                    console.log(response.data);
                    
                });

@@ -12,14 +12,14 @@
         //DECLARACAO
         var vm = this;
         vm.personagens = {};
-        $scope.personagemSelecionado = {};
-        $scope.golpeSelecionado = {};
-        $scope.golpes = {};
-        $scope.personagem = {};
+        vm.personagemSelecionado = {};
+        vm.golpeSelecionado = {};
+        vm.golpes = {};
+        vm.personagem = {};
 
         vm.listarPersonagens = function () {
-            console.log('RODEI');
-            $http.get(urlPersonagens).then(vm.listarPersonagensSucesso,vm.listarPersonagensErro);
+            $http.get(urlPersonagens)
+            .then(vm.listarPersonagensSucesso,vm.listarPersonagensErro);
         };
 
         vm.getListaPersonagens = function(){
@@ -27,7 +27,6 @@
         };
 
         vm.listarPersonagensSucesso = function (response) {
-            console.log('Sucesso!');
             vm.personagens = response.data;
             vm.personagens.forEach(function(valor,index,array){
                 array[index].show = false;
@@ -35,78 +34,83 @@
         };
 
         vm.listarPersonagensErro = function (error){
-            console.log('Erro!');
             erroService.ERRO_MSG = 'Não foi possível retornar a lista de personagens';
             erroService.ERRO_NRO = 500;
-            console.log(erroService.ERRO_MSG);
             $('#modalErro').modal({focus:true});
         };
 
         vm.selecionaPersonagem = function (personagemSelecionado) {
-            $scope.personagem = personagemSelecionado;
-            $scope.personagem.show = !$scope.personagem.show;
-            if ($scope.personagem.show) {
+            vm.personagem = personagemSelecionado;
+            vm.personagem.show = !vm.personagem.show;
+            if (vm.personagem.show) {
                 var registroDTO = {
-                    'id': $scope.personagem.id,
-                    'nome': $scope.personagem.nome,
-                    'fotoUrl': $scope.personagem.foto != null ? $scope.personagem.foto : ''
+                    'id': vm.personagem.id,
+                    'nome': vm.personagem.nome,
+                    'fotoUrl': vm.personagem.foto != null ? vm.personagem.foto : ''
                 };
-                $http.post(urlPersonagensLazy, registroDTO).then(function (response) {
-                    var i = $scope.personagens.indexOf(personagemSelecionado);
-                    $scope.personagens[i] = response.data;
-                    $scope.personagens[i].show = true;
-                    $scope.personagem = $scope.personagens[i];
-                }).catch(function (erro) {
-                    alert(erro.toString());
-                });
+                $http.post(urlPersonagensLazy, registroDTO)
+                    .then(vm.carregaPersonagemSucesso
+                        ,vm.carregaPersonagemFalha);
             }
         };
 
-        vm.limpaPersonagem = function () {
-            $scope.personagem = null;
+        vm.carregaPersonagemSucesso = function (response) {
+            var i = vm.personagens.indexOf(vm.personagem);
+            vm.personagens[i] = response.data;
+            vm.personagens[i].show = true;
+            vm.personagem = vm.personagens[i];
         };
 
-        $scope.salvaPersonagem = function () {
-            console.log($scope.personagem);
+        vm.carregaPersonagemFalha = function (erro) {
+            erroService.ERRO_NRO = erro.status;
+            erroService.ERRO_MSG = 'Erro!';
+        };
+
+        vm.limpaPersonagem = function () {
+            vm.personagem = null;
+        };
+
+        vm.salvaPersonagem = function () {
+            console.log(vm.personagem);
             var registroNovo;
-            if ("id" in $scope.personagem) {
+            if ("id" in vm.personagem) {
                 registroNovo = {
-                    'id': $scope.personagem.id != null ? $scope.personagem.id : '',
-                    'nome': $scope.personagem.nome,
-                    'fotoUrl': $scope.personagem.foto != null ? $scope.personagem.foto : '',
-                    'golpes': $scope.personagem.golpes
+                    'id': vm.personagem.id != null ? vm.personagem.id : '',
+                    'nome': vm.personagem.nome,
+                    'fotoUrl': vm.personagem.foto != null ? vm.personagem.foto : '',
+                    'golpes': vm.personagem.golpes
                 };
                 console.log(registroNovo);
                 $http.put(urlPersonagens, registroNovo).then(function (response) {
-                    $scope.personagens.push($scope.personagem);
-                    $scope.limpaPersonagem();
-                    $scope.listarPersonagens();
+                    vm.personagens.push(vm.personagem);
+                    vm.limpaPersonagem();
+                    vm.listarPersonagens();
                 }).catch(function (erro) {
                     alert(erro.toString());
                 });
             } else {
                 registroNovo = {
-                    'id': $scope.personagem.id,
-                    'nome': $scope.personagem.nome,
-                    'fotoUrl': $scope.personagem.foto,
-                    'golpes': $scope.personagem.golpes
+                    'id': vm.personagem.id,
+                    'nome': vm.personagem.nome,
+                    'fotoUrl': vm.personagem.foto,
+                    'golpes': vm.personagem.golpes
                 };
                 $http.post(urlPersonagens, registroNovo).then(function (response) {
-                    $scope.personagens.push($scope.personagem);
-                    $scope.limpaPersonagem();
-                    $scope.listarPersonagens();
+                    vm.personagens.push(vm.personagem);
+                    vm.limpaPersonagem();
+                    vm.listarPersonagens();
                 }).catch(function (erro) {
                     alert(erro.toString());
                 });
             }
         };
 
-        $scope.excluirPersonagem = function () {
-            if ('id' in $scope.personagem) {
+        vm.excluirPersonagem = function () {
+            if ('id' in vm.personagem) {
                 var registro = {
-                    'id': $scope.personagem.id != null ? $scope.personagem.id : '',
-                    'nome': $scope.personagem.nome,
-                    'fotoUrl': $scope.personagem.foto != null ? $scope.personagem.foto : '',
+                    'id': vm.personagem.id != null ? vm.personagem.id : '',
+                    'nome': vm.personagem.nome,
+                    'fotoUrl': vm.personagem.foto != null ? vm.personagem.foto : '',
                     'golpes': null
                 };
                 $http({
@@ -117,7 +121,7 @@
                         'Content-type': 'application/json;charset=utf-8'
                     }
                 }).then(function (response) {
-                    $scope.personagens.splice($scope.personagens.indexOf($scope.personagem));
+                    vm.personagens.splice(vm.personagens.indexOf(vm.personagem));
                     console.log(response);
                 }).catch(function (erro) {
                     alert(erro.toString());
@@ -129,19 +133,19 @@
 
 
         vm.selecionaGolpe = function (golpeArg) {
-            $scope.golpeSelecionado = golpeArg;
+            vm.golpeSelecionado = golpeArg;
         };
 
-        $scope.salvaGolpe = function () {
+        vm.salvaGolpe = function () {
             var registroGolpe =
             {
-                'id': $scope.golpeSelecionado.id,
-                'input': $scope.golpeSelecionado.input,
+                'id': vm.golpeSelecionado.id,
+                'input': vm.golpeSelecionado.input,
                 'nomeGolpe': "",
-                'blockframes': $scope.golpeSelecionado.blockframes,
-                'hitframes': $scope.golpeSelecionado.hitframes,
-                'chframes': $scope.golpeSelecionado.chframes,
-                'personagem': $scope.personagem
+                'blockframes': vm.golpeSelecionado.blockframes,
+                'hitframes': vm.golpeSelecionado.hitframes,
+                'chframes': vm.golpeSelecionado.chframes,
+                'personagem': vm.personagem
 
             };
             delete registroGolpe.personagem.show;
@@ -152,17 +156,17 @@
             });
         };
 
-        $scope.excluirGolpe = function () {
-            if ('id' in $scope.personagem) {
+        vm.excluirGolpe = function () {
+            if ('id' in vm.personagem) {
                 var registroGolpe =
                 {
-                    'id': $scope.golpeSelecionado.id,
-                    'input': $scope.golpeSelecionado.input,
+                    'id': vm.golpeSelecionado.id,
+                    'input': vm.golpeSelecionado.input,
                     'nomeGolpe': "",
-                    'blockframes': $scope.golpeSelecionado.blockframes,
-                    'hitframes': $scope.golpeSelecionado.hitframes,
-                    'chframes': $scope.golpeSelecionado.chframes,
-                    'personagem': $scope.personagem
+                    'blockframes': vm.golpeSelecionado.blockframes,
+                    'hitframes': vm.golpeSelecionado.hitframes,
+                    'chframes': vm.golpeSelecionado.chframes,
+                    'personagem': vm.personagem
 
                 };
                 delete registroGolpe.personagem.show;
@@ -174,7 +178,7 @@
                         'Content-type': 'application/json;charset=utf-8'
                     }
                 }).then(function (response) {
-                    $scope.personagens.splice($scope.personagens.indexOf($scope.personagem));
+                    vm.personagens.splice(vm.personagens.indexOf(vm.personagem));
                     console.log(response);
                 }).catch(function (erro) {
                     alert(erro.toString());
@@ -185,8 +189,9 @@
         };
 
         vm.$onInit = function () {
-            vm.listarPersonagens();
-        }
+            // vm.listarPersonagens();
+            vm.personagens = [{"id":1,"nome":"Steve","fotoUrl":"","golpes":null},{"id":2,"nome":"Fahkunram","fotoUrl":"","golpes":null}];
+        };
 
     }; 
 

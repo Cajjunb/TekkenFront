@@ -9,19 +9,18 @@
 (function(app){
    
     var usuarioController = function($scope, $http,$routeParams,notify){
-        
-       $scope.usuarioSelecionado = null;
-       
-       $scope.teste = "STRING TESTE";
+        var vm = this;
+        vm.usuarioSelecionado = null;
+        vm.teste = "STRING TESTE";
 
-       $scope.selecionaUsuario = function(usuario){
-           $scope.usuarioSelecionado = usuario;
-       };
-       
-       $scope.printaUsuario = function(){
-           console.log(notify);
-       };
-       
+        vm.selecionaUsuario = function(usuario){
+            vm.usuarioSelecionado = usuario;
+        };
+        
+        vm.printaUsuario = function(){
+            console.log(notify);
+        };
+        
 
     };   
     app.controller("usuarioController",['$scope','$http','$routeParams','notify',usuarioController]);
